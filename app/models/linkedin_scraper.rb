@@ -7,7 +7,7 @@ class LinkedinScraper < ActiveRecord::Base
 attr_accessor :url, :searches
 
   def initialize
-    @base_url = "http://search.gotobus.com/search/bus.do?"
+    @base_url = "http://"
     @searches = []
   
   end
