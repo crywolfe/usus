@@ -18,6 +18,7 @@
 #  admin_status           :boolean          default(FALSE)
 #  created_at             :datetime
 #  updated_at             :datetime
+#  password_digest        :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -26,7 +27,6 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
   validates :email, presence: true
-  validates :password, length: {minimum: 6}
 
   validates :city, presence: true
   validates :state, presence: true
