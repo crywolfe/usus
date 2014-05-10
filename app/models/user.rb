@@ -19,6 +19,7 @@
 #  created_at             :datetime
 #  updated_at             :datetime
 #  password_digest        :string(255)
+#  member_id              :string(255)
 #
 
 class User < ActiveRecord::Base
