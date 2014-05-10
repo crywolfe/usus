@@ -4,11 +4,23 @@
 <div id="registration_form">
 
   <script type="IN/Login">
-    <form action="/register.html">
+
+    <form action="/users" method="POST">
+    <input name="authenticity_token" value="<%= form_authenticity_token %>"
+    type="hidden"/>
+    <input type="hidden" name="profile_pic_url" value="<?js= pictureUrl ?>"/>
+    <?js if (pictureUrl) { ?>
+      <img src="<?js= pictureUrl ?>"></img>
+    <?js } else { ?>
+      <p>Upload a photo, so we can see what you look like.</p>
+    <?js } ?>
+
     <p>Name: <input type="text" name="name" value="<?js= firstName ?> <?js= lastName ?>" /></p>
     <p>Password: <input type="password" name="password" /></p>
     <p>Password Confirmation: <input type="password" name="password_confirmation" /></p>
     <p>City: <input type="text" name="city" /></p>
+    <p>Email: <input type="text" name="email"/></p>
+
     <p>State: <input type="text" name="state" /></p>
     <p>Zip: <input type="text" name="zip" /></p>
     <p>Current Position: <input type="text" name="current_position_title" /></p>
@@ -24,15 +36,9 @@
     <p>Company Name: <input type="text" name="company_name" /></p>
     <p>LinkedIn Profile Link: <input type="text" name="linkedin_profile_link" /></p>
     <input type="hidden" name="member_id" value="<?js= id ?>"/>
-    <input type="hidden" name="profile_pic_url" value="<?js= pictureUrl ?>"/>
-    <?js if (pictureUrl) { ?>
-      <img src="<?js= pictureUrl ?>"></img>
-    <?js } else { ?>
-      <p>Upload a photo, so we can see what you look like.</p>
-    <?js } ?>
 
-    <input type="hidden" name="linkedin-id" value="<?js= id ?>" />
     <input type="submit" name="submit" value="Sign Up"/>
+
   </script>
 </div>
 
