@@ -5,10 +5,8 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    @user.save
+    @user = User.create(user_params)
     redirect_to("/searches/new")
-
   end
 
   def show
@@ -33,7 +31,8 @@ class UsersController < ApplicationController
       :current_position_title,
       :employment_status,
       :company_name,
-      :member_id
+      :member_id,
+      :linkedin_profile_link
     )
   end
 
