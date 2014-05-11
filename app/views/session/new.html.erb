@@ -1,21 +1,7 @@
-<h1> USUS </h1>
-<h2> The Skills to Strengths Emulator </h2>
-
-<% if logged_in? %>
- <p> Already Logged In </p>
-<% else %>
- <p> Sign-in with your LinkedIN Account to Get Started!</p>
-<% end %>
-
-<div id="registration_form">
-
-<!-- New User Registration Form Using Auto-Populate Script from LinkedIN API
-Potential Re-factor: user form_for helper in the users/new route -->
-
-  <script type="IN/Login">
+<script type="IN/Login">
 
   <p>Hello, <?js= firstName ?> <?js= lastName ?>.</p>
-  <p> Complete the form below to get started with USUS! </p>
+  <p> THIS IS ON THE SESSION CONTROLLER </p>
 
     <form action="/users" method="POST">
       <input name="authenticity_token" value="<%= form_authenticity_token %>"
@@ -53,10 +39,3 @@ Potential Re-factor: user form_for helper in the users/new route -->
       <input type="submit" name="submit" value="Sign Up"/>
     </form>
   </script>
-</div>
-
-<!-- LinkedIN Session Logout -->
-<a onclick='IN.User.logout(function redirect(){
-    window.location = "logout.php";
-  });'
-href="javascript:void(0)">Log Me Out</a>
