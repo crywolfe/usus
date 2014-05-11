@@ -1,0 +1,32 @@
+ <!-- Form_for version of new user regisration form that currently appears on welcome#index -->
+ <!-- If time permits, refactor html form with rails form helper below -->
+ <!-- Blocker: unable to auto-populate form fields with LinkedIN API autocomplete instead the text string is rendered -->
+
+ <script type="IN/Login" >
+  <%= form_for(@user, :url => {:action => "create"}) do |f| %>
+      <%= f.label(:name, "Name:") %>
+      <%= f.text_field :name, value:"<?js= firstName ?> <?js= lastName ?>"%>
+      <br><%= f.label(:email, "Email:") %>
+      <%= f.text_field :email %>
+      <br><%= f.label(:password, "Password:") %>
+      <%= f.password_field :password %>
+      <br><%= f.label(:password_confirmation, "password_confirmation") %>
+      <%= f.password_field :password_confirmation %>
+      <br><%= f.label(:city, "City:") %>
+      <%= f.text_field :city %>
+      <br><%= f.label(:state, "State:") %>
+      <%= f.text_field :state %>
+      <br><%= f.label(:zip, "Zip:") %>
+      <%= f.text_field :zip %>
+      <br><%= f.label(:current_position_title, "Current Position Title:") %>
+      <%= f.text_field :current_position_title %>
+      <br><%= f.label(:employment_status, "Employment Status:") %>
+      <%= f.text_field :employment_status %>
+      <br><%= f.label(:company_name, "Company Name:") %>
+      <%= f.text_field :company_name %>
+      <%= f.hidden_field :member_id %>
+      <br><%= f.label(:linkedin_profile_link, "LinkedIN Profile Link:") %>
+      <%= f.text_field :linkedin_profile_link%>
+      <br><%= f.submit "Sign Up" %>
+    <% end %>
+</script>

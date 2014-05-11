@@ -5,45 +5,43 @@
 
   <script type="IN/Login">
 
+// New User Registration Form Using Auto-Populate Script from LinkedIN API
+// Potential Re-factor: user form_for helper in the users/new route
     <form action="/users" method="POST">
-    <input name="authenticity_token" value="<%= form_authenticity_token %>"
-    type="hidden"/>
-    <input type="hidden" name="profile_pic_url" value="<?js= pictureUrl ?>"/>
-    <?js if (pictureUrl) { ?>
+      <input name="authenticity_token" value="<%= form_authenticity_token %>"
+      type="hidden"/>
+      <input type="hidden" name="user[profile_pic_url]" value="<?js= pictureUrl ?>"/>
+      <?js if (pictureUrl) { ?>
       <img src="<?js= pictureUrl ?>"></img>
-    <?js } else { ?>
+      <?js } else { ?>
       <p>Upload a photo, so we can see what you look like.</p>
-    <?js } ?>
+      <?js } ?>
 
-    <p>Name: <input type="text" name="name" value="<?js= firstName ?> <?js= lastName ?>" /></p>
-    <p>Password: <input type="password" name="password" /></p>
-    <p>Password Confirmation: <input type="password" name="password_confirmation" /></p>
-    <p>City: <input type="text" name="city" /></p>
-    <p>Email: <input type="text" name="email"/></p>
+      <p>Name: <input type="text" name="user[name]" value="<?js= firstName ?> <?js= lastName ?>" /></p>
+      <p>Password: <input type="password" name="user[password]" /></p>
+      <p>Password Confirmation: <input type="password" name="user[password_confirmation]" /></p>
+      <p>City: <input type="text" name="user[city]" /></p>
+      <p>Email: <input type="text" name="user[email]"/></p>
 
-    <p>State: <input type="text" name="state" /></p>
-    <p>Zip: <input type="text" name="zip" /></p>
-    <p>Current Position: <input type="text" name="current_position_title" /></p>
-    <label>Employment Status:</label>
-      <select id = "employment_status">
-       <option value = "1"></option>
-       <option value = "2">Full-Time</option>
-       <option value = "3">Part-Time</option>
-       <option value = "4">Self-Employed</option>
-       <option value = "5">Currently Looking</option>
-       <option value = "6">Intern</option>
-       <option value = "7">Other</option>
-      </select>
-    <p>Company Name: <input type="text" name="company_name" /></p>
-    <p>LinkedIn Profile Link: <input type="text" name="linkedin_profile_link" /></p>
-    <input type="hidden" name="member_id" value="<?js= id ?>"/>
+      <p>State: <input type="text" name="user[state]" /></p>
+      <p>Zip: <input type="text" name="user[zip]" /></p>
+      <p>Current Position: <input type="text" name="user[current_position_title]" /></p>
+      <label>Employment Status:</label>
+        <select id="employment_status" name="user[employment_status]">
+          <option value="None"></option>
+          <option value="Full-Time">Full-Time</option>
+          <option value="Part-Time">Part-Time</option>
+          <option value="Self-Employed">Self-Employed</option>
+          <option value="Currently Looking">Currently Looking</option>
+          <option value="Intern">Intern</option>
+          <option value="Other">Other</option>
+        </select>
+      <p>Company Name: <input type="text" name="user[company_name]" /></p>
+      <p>LinkedIn Profile Link: <input type="text" name="user[linkedin_profile_link]" /></p>
+      <input type="hidden" name="user[member_id]" value="<?js= id ?>"/>
 
-    <input type="submit" name="submit" value="Sign Up"/>
-
+      <input type="submit" name="submit" value="Sign Up"/>
+    </form>
   </script>
 </div>
 
-<!-- NOTE: ADD PROFILE PIC -->
-
-<!--
-<a id="#register" href="/users/new">Sign Up!</a> -->
