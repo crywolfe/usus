@@ -3,10 +3,11 @@
 
 <div id="registration_form">
 
+<!-- New User Registration Form Using Auto-Populate Script from LinkedIN API
+Potential Re-factor: user form_for helper in the users/new route -->
+
   <script type="IN/Login">
 
-// New User Registration Form Using Auto-Populate Script from LinkedIN API
-// Potential Re-factor: user form_for helper in the users/new route
     <form action="/users" method="POST">
       <input name="authenticity_token" value="<%= form_authenticity_token %>"
       type="hidden"/>
