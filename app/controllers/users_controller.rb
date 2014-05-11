@@ -1,11 +1,16 @@
 class UsersController < ApplicationController
 
   def new
+    @user = User.new
   end
 
   def create
+
+    # name = user_params['user']['name']
+
     @user = User.new(user_params)
     @user.save
+    redirect_to("/searches/new")
 
   end
 
@@ -20,16 +25,18 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    require(:user).permit(
+    params.require(:user).permit(
       :name,
       :email,
       :password,
+      :password_confirmation,
       :city,
       :state,
       :zip,
       :current_position_title,
       :employment_status,
-      :company_name
+      :company_name,
+      :member_id
     )
   end
 
