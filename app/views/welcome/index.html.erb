@@ -1,13 +1,7 @@
 <h1> USUS </h1>
 <h2> The Skills to Strengths Emulator </h2>
 
-<% if logged_in? %>
- <p> Already Logged In </p>
-<% else %>
- <p> Sign-in with your LinkedIN Account to Get Started!</p>
-<% end %>
-
-<div id="registration_form">
+<div id="login">
 
 <!-- New User Registration Form Using Auto-Populate Script from LinkedIN API
 Potential Re-factor: user form_for helper in the users/new route -->
@@ -15,45 +9,28 @@ Potential Re-factor: user form_for helper in the users/new route -->
   <script type="IN/Login">
 
   <p>Hello, <?js= firstName ?> <?js= lastName ?>.</p>
-  <p> Complete the form below to get started with USUS! </p>
 
-    <form action="/users" method="POST">
-      <input name="authenticity_token" value="<%= form_authenticity_token %>"
+   <form action="session/new" method="POST">
+    <input name="authenticity_token" value="<%= form_authenticity_token %>"
       type="hidden"/>
-      <input type="hidden" name="user[profile_pic_url]" value="<?js= pictureUrl ?>"/>
-      <?js if (pictureUrl) { ?>
-      <img src="<?js= pictureUrl ?>"></img>
-      <?js } else { ?>
-      <p>Upload a photo, so we can see what you look like.</p>
-      <?js } ?>
+    <input type="hidden" name="session[member_id]" value="<?js= id ?>"/>
+    <input type="submit" name="submit" value="Existing User" />
+   </form>
 
-      <p>Name: <input type="text" name="user[name]" value="<?js= firstName ?> <?js= lastName ?>" /></p>
-      <p>Password: <input type="password" name="user[password]" /></p>
-      <p>Password Confirmation: <input type="password" name="user[password_confirmation]" /></p>
-      <p>City: <input type="text" name="user[city]" /></p>
-      <p>Email: <input type="text" name="user[email]"/></p>
 
-      <p>State: <input type="text" name="user[state]" /></p>
-      <p>Zip: <input type="text" name="user[zip]" /></p>
-      <p>Current Position: <input type="text" name="user[current_position_title]" /></p>
-      <label>Employment Status:</label>
-        <select id="employment_status" name="user[employment_status]">
-          <option value="None"></option>
-          <option value="Full-Time">Full-Time</option>
-          <option value="Part-Time">Part-Time</option>
-          <option value="Self-Employed">Self-Employed</option>
-          <option value="Currently Looking">Currently Looking</option>
-          <option value="Intern">Intern</option>
-          <option value="Other">Other</option>
-        </select>
-      <p>Company Name: <input type="text" name="user[company_name]" /></p>
-      <p>LinkedIn Profile Link: <input type="text" name="user[linkedin_profile_link]" /></p>
-      <input type="hidden" name="user[member_id]" value="<?js= id ?>"/>
+   <form action="users/new" method="GET">
+    <input type="submit" name="submit" value="New User" />
+   </form>
 
-      <input type="submit" name="submit" value="Sign Up"/>
-    </form>
+
+
   </script>
+
+
+
 </div>
+
+
 
 <!-- LinkedIN Session Logout -->
 <a onclick='IN.User.logout(function redirect(){

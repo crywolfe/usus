@@ -2,6 +2,13 @@ class SessionController < ApplicationController
 
   def new
 
+    @member_id = params[:session][:member_id]
+
+    if User.find_by(member_id: @member_id) != nil
+      redirect_to new_search_path
+    else
+      redirect_to new_user_path
+    end
   end
 
   def create
