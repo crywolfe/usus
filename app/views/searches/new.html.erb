@@ -1,1 +1,17 @@
-NEW SEARCH PAGE
+<%= form_for(@search, :url => {:action => "create"}) do |f| %>
+  <%= f.label(:position, "Position:") %>
+  <%= f.text_field :position %>
+  <%= f.label(:industry, "Industry") %>
+  <%= f.text_field :industry %>
+
+  <br><%= f.label(:company, "Company:") %>
+  <%= f.password_field :company %>
+  <br><%= f.label(:city, "City:") %>
+  <%= f.text_field :city %>
+  <br><%= f.label(:state, "State:") %>
+  <%= f.text_field :state %>
+  <br><%= f.label(:zip, "Zip:") %>
+  <%= f.text_field :zip %>
+
+  <br><%= f.submit "Usus Me" %>
+<% end %>
