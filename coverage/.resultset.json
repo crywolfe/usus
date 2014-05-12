@@ -29,13 +29,13 @@
         null,
         null,
         null,
-        1,
         null,
         1,
         null,
         1,
-        1,
         null,
+        1,
+        1,
         1,
         1,
         1,
@@ -44,8 +44,18 @@
         1,
         null,
         null
+      ],
+      "/Users/chronix65/dev/wdi/usus/app/models/search.rb": [
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
       ]
     },
-    "timestamp": 1399668181
+    "timestamp": 1399915397
   }
 }
