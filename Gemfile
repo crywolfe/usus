@@ -43,6 +43,8 @@ group :development, :test do
   gem 'guard-bundler', require: false
   gem 'terminal-notifier-guard'
   gem 'simplecov'
+  gem 'execjs'
+
 end
 
 gem 'nokogiri', '~> 1.6.1'
@@ -58,4 +60,3 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
