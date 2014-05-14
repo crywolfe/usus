@@ -12,7 +12,6 @@ class SessionController < ApplicationController
   end
 
   def create
-    binding.pry
     # find the user by the given email from the form
     user = User.find_by(id: params[:id])
     # if we found the user and they gave us the right password

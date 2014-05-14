@@ -8,6 +8,7 @@ class SearchesController < ApplicationController
 
 
   def new
+    scraper = LinkedinScraper.new
     binding.pry
     @search = Search.new
   end
