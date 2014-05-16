@@ -19,6 +19,14 @@ class SessionController < ApplicationController
       # store user id in session
       # the key to the flash hash can be anything, you can call it user_name, football, etc.
       session[:user_id] = user.id
+
+      # take session cookie for user and validate signature to ensure legitimacy
+      
+
+
+
+
+
       redirect_to("/")
     else
       # rerender the login form

@@ -8,7 +8,10 @@ class SearchesController < ApplicationController
 
 
   def new
+    cookie_name = "linkedin_oauth_#{ENV['LINKEDIN_API_KEY']}"
+    $cookie = cookies[cookie_name]
     scraper = LinkedinScraper.new
+
     binding.pry
     @search = Search.new
   end

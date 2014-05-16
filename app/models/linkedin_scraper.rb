@@ -1,4 +1,11 @@
 require 'open-uri'
+require 'httparty'
+
+# for sha hash
+require 'base64'
+require 'cgi'
+require 'openssl'
+require 'hmac-sha1'
 
 class LinkedinScraper
 
@@ -26,12 +33,50 @@ class LinkedinScraper
   # end
 
   # this method fetches each individual profile
+
+  def create_sha_hash
+
+
+  end
+
+
   def fetch_profiles
     # Load document using Nokogiri and open-uri
     # save to instance variables the arrays of data
     # to be iterated through for data capture
-    all_text = Nokogiri::HTML(open(@outer_query_url))
+    # add our HTTParty authentication and access token
+    # NOTE: COME BACK TO FINISH SIGNATURE VALIDATION
+    # cookie_name = "linkedin_oauth_#{ENV['LINKEDIN_API_KEY']}"
     binding.pry
+    # session[cookies][cookie_name]
+    json_object = JSON.parse($cookie)
+    # signature = json_object["access_token"]+json_object["member_id"]
+
+    secret_key = "rZmdHiNNHsxjNgpl"
+    signature = json_object["access_token"]+json_object["member_id"]
+    sha_signature = Base64.encode64("#{OpenSSL::HMAC.digest('sha1', secret_key, signature)}\n")
+
+    hmac = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'),secret_key,signature)
+    hmac2 = Base64.encode64((HMAC::SHA1.new('secret_key') << 'signature').digest).strip
+
+    response = HTTParty.post("https://api.linkedin.com/uas/oauth/accessToken",
+      :query =>
+        {
+          oauth_consumer_key: "77hbzaeoi6qcng",
+          xoauth_oauth2_access_token: "2aad19dd-18d6-4594-ae33-89179511871b",
+          oauth_signature_method: json_object["signature_method"],
+          oauth_signature: hmac2
+        },
+        :headers => {
+        "Authorization" => "OAuth oauth_nonce=oqwgSYFUD87MHmJJDv7bQqOF2EPnVus7Wkqj5duNByU, oauth_signature_method=HMAC-SHA1, oauth_timestamp=#{Time.now}, oauth_consumer_key=77hbzaeoi6qcng, oauth_signature=#{hmac2}, oauth_version=1.0"
+
+        }
+      )
+
+
+
+
+    all_text = Nokogiri::HTML(open(@outer_query_url))
     relevant_text = all_text.xpath("//code")[0].children
     stringified_text = relevant_text.to_s
 
