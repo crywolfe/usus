@@ -12,7 +12,6 @@ class SessionController < ApplicationController
   end
 
   def create
-    binding.pry
     # find the user by the given email from the form
     user = User.find_by(id: params[:id])
     # if we found the user and they gave us the right password
@@ -20,6 +19,14 @@ class SessionController < ApplicationController
       # store user id in session
       # the key to the flash hash can be anything, you can call it user_name, football, etc.
       session[:user_id] = user.id
+
+      # take session cookie for user and validate signature to ensure legitimacy
+      
+
+
+
+
+
       redirect_to("/")
     else
       # rerender the login form

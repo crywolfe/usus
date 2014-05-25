@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(user_params)
+    redirect_to new_search_path
   end
 
   def show
