@@ -1,29 +1,29 @@
 ### Setting Up the SSL Server
 
-Out of the box, WEBrick does not provide the developer with an SSL server.
+Out of the box, Rails with WEBrick server does not provide the developer with an easy solution to building an SSL server using https for development purposes on localhost.
 
-Running an https WEBrick server on `https://localhost:3000` can be accomplished as described below.  
+Running an https WEBrick server on `https://localhost:3000` is not difficult and can be accomplished as described below.  
 
-The following code needs to inserted into the `config.ru` file located in the root of the Rails application.
+Insert the following code into the `config.ru` file located in the root of the Rails application.
 
 The `config.ru` file is used by Rack-based servers, of which WEBrick is one, to start the application.
 
-
-
 ```
-# Need to require openssl, webrick and webrick, https
+# The following code needs to be added to the very top of the config.ru file
+# Need to require openssl, webrick and webrick/https
 
-require 'openssl'
-require 'webrick'
-require 'webrick/https'
-
-require ::File.expand_path('../config/environment',  __FILE__)
+require 'openssl' # Openssl is needed to implement the Secure Sockets Layer protocols.
+require 'webrick' # Needed to configure WEBrick
+require 'webrick/https' # Needed to configure WEBrick as an https server
 ```
 
+Now that the contents of other ruby files are available in this application, it is time to create the HTTPS server.  To do so, one only needs to do two things.
+(1) enable SSL, and
+(2) provide an SSL certificate name.
 
+The following code needs to be inserted below all the `require` lines.  This code  implements the enabling of SSL and providing the SSL certificate name.
 
 ```
-
 Rack::Handler::WEBrick.run Rails.application, {
   SSLEnable: true,
   SSLPrivateKey: OpenSSL::PKey::RSA.new(
@@ -34,10 +34,9 @@ Rack::Handler::WEBrick.run Rails.application, {
   )
 }
 ```
+Lastly, the `certs/server.key` and `certs/server.crt` files need to be created.  Both files refer to keys and certificates the developer creates on their local environments.
 
-The `certs/server.key` and `certs/server.crt` refers to keys and certificates the developer creates on their local environments.
-
-The certs folder should be created in the root directory of the application.
+Create the certs directory inside the root directory of the application using the standard `mkdir certs` command.
 
 Once a certs directory is created then run the following commands.
 
@@ -46,15 +45,12 @@ Once a certs directory is created then run the following commands.
 `openssl req -new -key server.key -out request.csr`
 `openssl x509 -req -days 365 -in request.csr -signkey server.key -out server.crt`
 
-More information can be found here.
-http://houseofding.com/2008/11/generate-a-self-signed-ssl-certificate-for-local-development-on-a-mac/
+Now that the three steps have been completed, it is time to start the HTTPS server.
+Type `rails s`.
 
-Now it is time to start the server.
-
-`rails s`
+When done, the similar output to the output below should be expected.
 
 ```
-$ rails s
 => Booting WEBrick
 => Rails 4.1.0 application starting in development on http://0.0.0.0:3000
 => Run `rails server -h` for more startup options
@@ -114,10 +110,13 @@ Certificate:
          24:5b:06:6f
 [2014-05-31 16:42:53] INFO  WEBrick::HTTPServer#start: pid=2443 port=8080
 ```
+If the above output shows up, a successful HTTPS server has been created.
 
 ###Stopping the Rails WEBrick SSL Server
 
-Stopping the server requires additional commands.
+Stopping the HTTPS server is not as simple as typing `ctrl-c`.  Shutting it down requires additional commands.
+
+The first command is as follows:
 
 `ps aux | grep ruby`
 
@@ -126,4 +125,4 @@ This chained command will provide an output similar to the following.
 
 The first number "2443" is called the process id number.  `kill -9 [PID]` will shutdown the server.
 
-Since the PID is "2443" `kill -9 2443` will shut it down.
+Since the PID is "2443" `kill -9 2443` will shut the server down.
