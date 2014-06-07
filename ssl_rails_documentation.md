@@ -1,12 +1,12 @@
-### Setting Up the SSL Server
+### Set Up the WEBrick SSL Server on LocalHost
 
-Out of the box, Rails with WEBrick server does not provide the developer with an easy solution to building an SSL server using https for development purposes on localhost.
+Out of the box, Rails with WEBrick server does not provide an easy solution to build an SSL server using https for development purposes on localhost.
 
-Running an https WEBrick server on `https://localhost:3000` is not difficult and can be accomplished as described below.  
+However, running an https WEBrick server on `https://localhost:3000` is not difficult and can be accomplished as described below.  
 
 Insert the following code into the `config.ru` file located in the root of the Rails application.
 
-The `config.ru` file is used by Rack-based servers, of which WEBrick is one, to start the application.
+WEBrick is a Rack-based server.  The `config.ru` file is used by Rack-based servers to start the application.
 
 ```
 # The following code needs to be added to the very top of the config.ru file
@@ -17,11 +17,11 @@ require 'webrick' # Needed to configure WEBrick
 require 'webrick/https' # Needed to configure WEBrick as an https server
 ```
 
-Now that the contents of other ruby files are available in this application, it is time to create the HTTPS server.  To do so, one only needs to do two things.
+Now that the contents of the openssl, webrick and https ruby files are available in this application, the application is ready to create the HTTPS server.  To do so, one only needs to do two things.
 (1) enable SSL, and
 (2) provide an SSL certificate name.
 
-The following code needs to be inserted below all the `require` lines.  This code  implements the enabling of SSL and providing the SSL certificate name.
+Both of those steps are accomplished by inserting the following code.  This code needs to be inserted below all the `require` lines.  This code implements the enabling of SSL and also provides the SSL certificate name.
 
 ```
 Rack::Handler::WEBrick.run Rails.application, {
