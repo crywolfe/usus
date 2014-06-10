@@ -1,8 +1,8 @@
 ### Set Up the WEBrick SSL Server on LocalHost
 
-Out of the box, Rails with WEBrick server does not provide an easy solution to build an SSL server using https for development purposes on localhost.
+Out of the box, Rails with WEBrick server does not provide an easy solution to build an SSL server using HTTPS for development purposes on localhost.
 
-However, running an https WEBrick server on `https://localhost:3000` is not difficult and can be accomplished as described below.  
+However, running an HTTPS WEBrick server on `https://localhost:3000` is not difficult and can be accomplished as described below.  
 
 Insert the following code into the `config.ru` file located in the root of the Rails application.
 
@@ -10,14 +10,13 @@ WEBrick is a Rack-based server.  The `config.ru` file is used by Rack-based serv
 
 ```
 # The following code needs to be added to the very top of the config.ru file
-# Need to require openssl, webrick and webrick/https
 
-require 'openssl' # Openssl is needed to implement the Secure Sockets Layer protocols.
+require 'openssl' # Needed to implement the Secure Sockets Layer protocols.
 require 'webrick' # Needed to configure WEBrick
-require 'webrick/https' # Needed to configure WEBrick as an https server
+require 'webrick/https' # Needed to configure WEBrick as an HTTPS server
 ```
 
-Now that the contents of the openssl, webrick and https ruby files are available in this application, the application is ready to create the HTTPS server.  To do so, one only needs to do two things.
+Now that the contents of the openssl, webrick and HTTPS ruby files are available in this application, the application is ready to create the HTTPS server.  To do so, one needs to take two steps.
 (1) enable SSL, and
 (2) provide an SSL certificate name.
 
@@ -39,11 +38,12 @@ Lastly, the `certs/server.key` and `certs/server.crt` files need to be created. 
 Create the certs directory inside the root directory of the application using the standard `mkdir certs` command.
 
 Once a certs directory is created then run the following commands.
-
-`cd certs`
-`ssh-keygen -f server.key`
-`openssl req -new -key server.key -out request.csr`
-`openssl x509 -req -days 365 -in request.csr -signkey server.key -out server.crt`
+```
+cd certs
+ssh-keygen -f server.key
+openssl req -new -key server.key -out request.csr
+openssl x509 -req -days 365 -in request.csr -signkey server.key -out server.crt
+```
 
 Now that the three steps have been completed, it is time to start the HTTPS server.
 Type `rails s`.
