@@ -95,6 +95,7 @@ For example, one can run the following commands to kill the process.
 `ps aux | grep ruby`
 
 This chained command will provide an output similar to the following.
+
 `$           2443   0.0  1.5  2578296 123204 s000  T     4:42PM   0:02.98 $/.rbenv/versions/2.1.0/bin/ruby bin/rails s`
 
 The first number "2443" is the process id number.  In the example, `kill -9 2443` will shutdown the server.
