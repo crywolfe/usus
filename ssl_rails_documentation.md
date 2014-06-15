@@ -22,9 +22,9 @@ require 'webrick/https' # Configures WEBrick as an HTTPS server.
 
 The application is now ready to create the HTTPS server.
 
-The following code replaces `run Rails.application`.  The additional options specifically implement the enabling of SSL and also provides the SSL certificate name.  This tells WEBrick to boot up with SSL support and also specifies the SSL private key and certificate name.
+The following code replaces `run Rails.application`.  The additional options specifically tells WEBrick to boot up with SSL support and it also provides the SSL private key and SSL certificate name.
 
-Inserted the code below the last `require` code.  
+Insert the code after `require 'webrick/https'`.  
 
 ```
 Rack::Handler::WEBrick.run Rails.application, {
@@ -37,9 +37,9 @@ Rack::Handler::WEBrick.run Rails.application, {
   )
 }
 ```
-The `certs/server.key` and `certs/server.crt` files need to be created.  Both files refer to keys and certificates the developer creates on their local environments.
+WEBrick needs to access the private key and the certificate.  So, the `certs/server.key` and `certs/server.crt` files must  be created.  Note that both files refer to keys and certificates the developer creates on their local environments and are self-signed certificates.
 
-Create the certs directory inside the root directory of the application using the standard `mkdir certs` command.
+Create the certs directory inside the root directory of the application using the `mkdir certs` command.
 
 Once a certs directory is created then run the following commands.
 ```
@@ -84,7 +84,7 @@ Certificate:
          ...
 [2014-05-31 16:42:53] INFO  WEBrick::HTTPServer#start: pid=2443 port=8080
 ```
-If the above output shows up, a successful HTTPS server has been created on port 8080.
+If the output above shows up, a successful HTTPS server has been created on port 8080 on localhost.
 
 ###Stopping the Rails WEBrick SSL Server
 
