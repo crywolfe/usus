@@ -1,10 +1,10 @@
 ### Set Up the WEBrick SSL Server on LocalHost
 
-Out of the box, Rails with WEBrick server does not provide an easy solution to build an SSL server using HTTPS for development purposes on localhost.
-
 With WEBrick as the default development server, one cannot just configure Rails to enable SSL, because WEBrick must be invoked with SSL support turned on.  This means that modifying `config.ru` is necessary.
 
 WEBrick is a Rack-based server.  The `config.ru` file is used by Rack-based servers to start the application.
+
+Out of the box, Rails with WEBrick server does not provide an easy solution to build an SSL server using HTTPS for development purposes on localhost.
 
 Running an HTTPS WEBrick server on `https://localhost:8080` is not difficult and can be accomplished as described below.  
 
@@ -49,7 +49,7 @@ ssh-keygen -f server.key
 openssl req -new -key server.key -out request.csr
 openssl x509 -req -days 365 -in request.csr -signkey server.key -out server.crt
 ```
-Note that when running both `openssl` commands, other security related questions will be asked.  Follow the prompts accordingly.
+Note that the `ssh-keygen` command generates a "self-signed" certificate.  Also note that when running both `openssl` commands, other security related questions will be asked.  Follow the prompts accordingly.
 
 Open the `Gemfile`.  Add the following code to the gemfile.
 
@@ -90,14 +90,10 @@ Certificate:
                 Public-Key: (2048 bit)
                 Modulus:
                     00:c0:6c:7c:2d:b3:b0:f3:ac:d6:de:84:eb:ea:59:
-                    7d:86:d7:f9:47:64:cc:57:e8:84:d7:df:a9:21:43:
                     ...
-                    25:81
-                Exponent: 65537 (0x10001)
     Signature Algorithm: sha1WithRSAEncryption
          4e:88:c9:7d:a8:0e:77:54:34:94:00:57:23:64:a3:bc:1d:40:
          ...
-         24:5b:06:6f
 [2014-05-31 16:42:53] INFO  WEBrick::HTTPServer#start: pid=2443 port=8080
 ```
 If the above output shows up, a successful HTTPS server has been created on port 8080.
