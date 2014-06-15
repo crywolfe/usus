@@ -12,8 +12,7 @@ Open the `config.ru` file which is located in the root directory of the Rails ap
 
 Delete the line containing `run Rails.application`.
 
-Insert the following code at the top of the config.ru file above all default `require` code.  This new code implements the enabling of SSL and also provides the SSL certificate name.  This tells WEBrick to boot up with SSL support.
-
+Insert the following code at the top of the config.ru file above all default `require` code.
 
 ```
 require 'openssl' # Implements the Secure Sockets Layer protocols.
@@ -21,11 +20,11 @@ require 'webrick' # Configures WEBrick.
 require 'webrick/https' # Configures WEBrick as an HTTPS server.
 ```
 
-The application is now ready to create the HTTPS server.  To do so, one needs to take two steps.
-(1) enable SSL, and
-(2) provide an SSL certificate name.
+The application is now ready to create the HTTPS server.
 
-Both of those steps are accomplished by inserting the code found below.  The below described code needs to be inserted below all the `require` lines.  It is replacing the `run Rails.application`. It specifically implements the enabling of SSL and also provides the SSL certificate name.
+The following code replaces `run Rails.application`.  The additional options specifically implement the enabling of SSL and also provides the SSL certificate name.  This tells WEBrick to boot up with SSL support and also specifies the SSL private key and certificate name.
+
+Inserted the code below the last `require` code.  
 
 ```
 Rack::Handler::WEBrick.run Rails.application, {
@@ -68,24 +67,13 @@ When done, the similar output to the output below should be expected.
 
 ```
 => Booting WEBrick
-=> Rails 4.1.0 application starting in development on http://0.0.0.0:3000
-=> Run `rails server -h` for more startup options
-=> Notice: server is listening on all interfaces (0.0.0.0). Consider using 127.0.0.1 (--binding option)
-=> Ctrl-C to shutdown server
-[2014-05-31 16:42:53] INFO  WEBrick 1.3.1
-[2014-05-31 16:42:53] INFO  ruby 2.1.0 (2013-12-25) [x86_64-darwin13.0]
-[2014-05-31 16:42:53] INFO
+...
 Certificate:
     Data:
         Version: 1 (0x0)
         Serial Number: 10118111599302972979 (0x8c6ac0e43a369633)
     Signature Algorithm: sha1WithRSAEncryption
-        Issuer: C=us, ST=ny, L=ny, O=ga, OU=ga, CN=ga/emailAddress=name@email.com
-        Validity
-            Not Before: May 14 14:57:39 2014 GMT
-            Not After : May 14 14:57:39 2015 GMT
-        Subject: C=us, ST=ny, L=ny, O=ga, OU=ga, CN=ga/emailAddress=name@email.com
-        Subject Public Key Info:
+        ...
             Public Key Algorithm: rsaEncryption
                 Public-Key: (2048 bit)
                 Modulus:
@@ -100,7 +88,7 @@ If the above output shows up, a successful HTTPS server has been created on port
 
 ###Stopping the Rails WEBrick SSL Server
 
-Be aware that `ctrl-c` might not be enough to kill the process, so it may be necessary to stop the process manually through the `ps` or `kill` commands.
+Be aware that `ctrl-c` might not be enough to kill the process, so it may be necessary to stop the process manually through the `ps` or `kill -9 [PID]` commands.
 
 For example, one can run the following commands to kill the process.
 
@@ -109,4 +97,4 @@ For example, one can run the following commands to kill the process.
 This chained command will provide an output similar to the following.
 `$           2443   0.0  1.5  2578296 123204 s000  T     4:42PM   0:02.98 $/.rbenv/versions/2.1.0/bin/ruby bin/rails s`
 
-The first number "2443" is the process id number.  `kill -9 [PID]` will shutdown the server.  In the example, `kill -9 2443` will shutdown the server.
+The first number "2443" is the process id number.  In the example, `kill -9 2443` will shutdown the server.
