@@ -10,8 +10,6 @@ Running an HTTPS WEBrick server on `https://localhost:8080` is not difficult and
 
 Open the `config.ru` file which is located in the root directory of the Rails application.  
 
-Delete the line containing `run Rails.application`.
-
 Insert the following code at the top of the config.ru file above all default `require` code.
 
 ```
