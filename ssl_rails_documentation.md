@@ -22,9 +22,9 @@ require 'webrick/https' # Configures WEBrick as an HTTPS server.
 
 The application is now ready to create the HTTPS server.
 
-The following code replaces `run Rails.application`.  The additional options specifically tells WEBrick to boot up with SSL support and it also provides the SSL private key and SSL certificate name.
+Delete `run Rails.application`.  Insert the code below in place of `run Rails.application`.  
 
-Insert the code after `require 'webrick/https'`.  
+The additional options specifically tell WEBrick to boot up with SSL support and it also provides the SSL private key and SSL certificate name.
 
 ```
 Rack::Handler::WEBrick.run Rails.application, {
@@ -49,16 +49,6 @@ openssl req -new -key server.key -out request.csr
 openssl x509 -req -days 365 -in request.csr -signkey server.key -out server.crt
 ```
 Note that the `ssh-keygen` command generates a "self-signed" certificate.  Also note that when running both `openssl` commands, other security related questions will be asked.  Follow the prompts accordingly.
-
-Open the `Gemfile`.  Add the following code to the gemfile.
-
-```
-gem 'rack'
-gem 'webrick'
-```
-
-In the terminal run bundle to ensure the Rails application recognizes the needed gems.
-`$ bundle`
 
 It is time to start the HTTPS server.
 Type `rails s`.
