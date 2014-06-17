@@ -1,4 +1,4 @@
-### Set Up the WEBrick SSL Server on LocalHost
+### Setting Up the WEBrick SSL Server on LocalHost
 
 With WEBrick as the default development server, one cannot just configure Rails to enable SSL, because WEBrick must be invoked with SSL support turned on.  This means that modifying `config.ru` is necessary.
 
@@ -12,7 +12,7 @@ Open the `config.ru` file which is located in the root directory of the Rails ap
 
 Insert the following code at the top of the config.ru file above all default `require` code.
 
-```
+```ruby
 require 'openssl' # Implements the Secure Sockets Layer protocols.
 require 'webrick' # Configures WEBrick.
 require 'webrick/https' # Configures WEBrick as an HTTPS server.
@@ -24,7 +24,7 @@ Delete `run Rails.application`.  Insert the code below in place of `run Rails.ap
 
 The additional options specifically tell WEBrick to boot up with SSL support and it also provides the SSL private key and SSL certificate name.
 
-```
+```ruby
 Rack::Handler::WEBrick.run Rails.application, {
   SSLEnable: true,
   SSLPrivateKey: OpenSSL::PKey::RSA.new(
@@ -40,7 +40,7 @@ WEBrick needs to access the private key and the certificate.  So, the `certs/ser
 Create the certs directory inside the root directory of the application using the `mkdir certs` command.
 
 Once a certs directory is created then run the following commands.
-```
+```ruby
 cd certs
 ssh-keygen -f server.key
 openssl req -new -key server.key -out request.csr
@@ -53,7 +53,7 @@ Type `rails s`.
 
 When done, the similar output to the output below should be expected.
 
-```
+```ruby
 => Booting WEBrick
 ...
 Certificate:
